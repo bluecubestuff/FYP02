@@ -9,6 +9,9 @@ public class RoomTemplates : MonoBehaviour {
 	public GameObject[] leftRooms;
 	public GameObject[] rightRooms;
 
+    // type of room it is e.g(treasure,shop,garbage,...)
+    public GameObject[] typeRooms;
+
 	public GameObject closedRoom;
 	public GameObject boss;
 	public float waitTime;

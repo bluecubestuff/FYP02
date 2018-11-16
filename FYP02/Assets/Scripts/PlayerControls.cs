@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour {
+public class PlayerControls : MonoBehaviour {
 
     public float moveSpeed = 10f;
+    public Collider attackCollider;
 
     private Vector3 forward = new Vector3(0, 1, 0);
     private Vector3 right = new Vector3(1, 0, 0);
@@ -39,9 +40,13 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+        //do attack (temp)
+        if (Input.GetMouseButtonDown(0))
+            attackCollider.gameObject.SetActive(true);
+
+         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Input.mousePosition - pos;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y - 1f, cameraTransform.position.z);

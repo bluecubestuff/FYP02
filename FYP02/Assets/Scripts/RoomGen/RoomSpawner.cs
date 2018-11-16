@@ -37,32 +37,40 @@ public class RoomSpawner : MonoBehaviour {
 	void Spawn(){
 		if(spawned == false)
         {
+            GameObject room = null;
             switch (openDirection)
             {
                 case OpeningDirection.Bottom:
                     // Need to spawn a room with a BOTTOM door.
                     rand = Random.Range(0, templates.bottomRooms.Length);
-                    Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
+                    room = Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
                     break;
                 case OpeningDirection.Top:
                     // Need to spawn a room with a TOP door.
                     rand = Random.Range(0, templates.topRooms.Length);
-                    Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
+                    room = Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
                     break;
                 case OpeningDirection.Left:
                     // Need to spawn a room with a LEFT door.
                     rand = Random.Range(0, templates.leftRooms.Length);
-                    Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
+                    room = Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
                     break;
                 case OpeningDirection.Right:
                     // Need to spawn a room with a RIGHT door.
                     rand = Random.Range(0, templates.rightRooms.Length);
-                    Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+                    room = Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
                     break;
                 default:
                     Debug.LogWarning("No opening direction!");
                     //Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
                     break;
+            }
+
+            //determine the room type
+            if (room != null)
+            {
+                rand = Random.Range(0, templates.typeRooms.Length);
+                Instantiate(templates.typeRooms[rand], room.transform.position, templates.typeRooms[rand].transform.rotation);
             }
 
             spawned = true;
