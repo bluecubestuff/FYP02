@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RoomTemplates : MonoBehaviour {
 
@@ -12,7 +13,10 @@ public class RoomTemplates : MonoBehaviour {
     // type of room it is e.g(treasure,shop,garbage,...)
     public GameObject[] typeRooms;
 
-	public GameObject closedRoom;
+    //nav mesh
+    public List<NavMeshSurface> surfaces;
+
+    public GameObject closedRoom;
 	public GameObject boss;
 	public float waitTime;
 
@@ -21,16 +25,35 @@ public class RoomTemplates : MonoBehaviour {
 
 	private bool spawnedBoss;
 
-	void Update(){
+    private void Awake()
+    {
+        surfaces = new List<NavMeshSurface>();
+    }
+
+    void Update(){
+        if (spawnedBoss)
+            return;
+
         // might move this to start
-		if(waitTime <= 0 && spawnedBoss == false){
-			for (int i = 0; i < rooms.Count; i++) {
-				if(i == rooms.Count-1){
+		if(waitTime <= 0 && spawnedBoss == false)
+        {
+			for (int i = 0; i < rooms.Count; i++)
+            {
+				if(i == rooms.Count-1)
+                {
 					Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
 					spawnedBoss = true;
-				}
+                }
 			}
-		} else {
+
+            for (int j = 0; j < surfaces.Count; j++)
+            {
+                surfaces[j].BuildNavMesh();
+            }
+
+        }
+        else
+        {
 			waitTime -= Time.deltaTime;
 		}
 	}

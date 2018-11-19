@@ -9,5 +9,7 @@ public class AddRoom : MonoBehaviour
     {
 		templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
 		templates.rooms.Add(this.gameObject);
-	}
+       // gameObject.transform.Rotate(new Vector3(90, 0, 0));
+
+    }
 }

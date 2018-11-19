@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public Slider Healthbar;
     [SerializeField]
     float health = 100f;
 
@@ -18,7 +20,7 @@ public class Player : MonoBehaviour
     public static Player Instance { get { return instance; } }
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
         //Check if instance already exists
         if (instance == null)
@@ -35,6 +37,15 @@ public class Player : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        //Healthbar.value = Health;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Scrolls"))
+        {
+            //get scroll type add stat
+            other.gameObject.SetActive(false);
+        }
+    }
 }

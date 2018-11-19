@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RoomSpawner : MonoBehaviour {
 
@@ -70,7 +71,8 @@ public class RoomSpawner : MonoBehaviour {
             if (room != null)
             {
                 rand = Random.Range(0, templates.typeRooms.Length);
-                Instantiate(templates.typeRooms[rand], room.transform.position, templates.typeRooms[rand].transform.rotation);
+                GameObject rTemp = Instantiate(templates.typeRooms[rand], room.transform.position, templates.typeRooms[rand].transform.rotation);
+                templates.surfaces.Add(rTemp.GetComponent<NavMeshSurface>());
             }
 
             spawned = true;
